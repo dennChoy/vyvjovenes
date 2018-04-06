@@ -88,7 +88,6 @@ $db['default'] = array(
 	'password' => 'developer1993',
 	'database' => 'vyvjovenes',
 	'dbdriver' => 'mysqli',
-	
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
