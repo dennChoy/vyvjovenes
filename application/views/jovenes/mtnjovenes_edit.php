@@ -1,31 +1,35 @@
+<script src="<?=base_url('resources/js/modulos/jsjovenes.js')?>"> </script>
 <?php
-//print_r($datoPersonal);
+	$idDatoPersonal = $this->uri->segment(3);
+	//print_r($datoPersonal);
+	$formatFechaNacimiento = new DateTime($datoPersonal->fecha_nacimiento);
+	
 ?>
+
 <div class="card">
 	<div class="card-header">
-		<b>Formulario de Ingreso </b>
+		<h4>Datos Personales </h4>
 	</div>
 	<div class="card-body">
-		<form action="guardarNuevaPersona" method="POST">
-			<h4>Datos Generales</h4>
-			<br>
+		<form action="<?= base_url('index.php/Jovenes/actualizarDatoPersonal') ?>" method="POST">
+			<input type="hidden" name="iptIdDatoPersonal" value="<?= $idDatoPersonal ?>">
 			<div class="row">	
 				<div class="form-group col-sm-4">
 					<label for="iptNombres">Nombres: </label>
-					<input type="text" class="form-control" id="iptNombres" name="iptNombres">
+					<input type="text" class="form-control" id="iptNombres" name="iptNombres" value="<?php if(isset($datoPersonal)){echo $datoPersonal->nombres; }?>">
 				</div>
 				<div class="form-group col-sm-4">
 					<label for="iptApellidos">Apellidos: </label>
-					<input type="text" class="form-control" id="iptApellidos" name="iptApellidos">
+					<input type="text" class="form-control" id="iptApellidos" name="iptApellidos" value="<?php if(isset($datoPersonal)){echo $datoPersonal->apellidos; }?>">
 				</div>
 				<div class="form-group col-sm-4">
 	            	<label class="ml-2" for="divSexo">Sexo:</label>
 	            	<div class="form-group" id="divSexo">
 	            		<div class="radio ml-2">
-	            			<label><input type="radio" name="iptSexo" value="M"> Hombre</label>
+	            			<label><input type="radio" name="iptSexo" value="M" <?php if($datoPersonal->sexo == "M"){echo "checked";} ?>> Hombre</label>
 	            		</div>
 	            		<div class="radio ml-2">
-	            			<label><input type="radio" name="iptSexo" value="F"> Mujer</label>
+	            			<label><input type="radio" name="iptSexo" value="F" <?php if($datoPersonal->sexo == "F"){echo "checked";} ?>> Mujer</label>
 	            		</div>
 	            	</div>
 	            </div>
@@ -34,22 +38,33 @@
 				<div class="form-group col-sm-3">
 					<label for="iptFechaNacimiento"> Fecha de Nacimiento: </label>
 					<div class="input-group date" id="iptFechaNacimiento" data-target-input="nearest">
-		            	<input type="text" class="form-control datetimepicker-input" data-target="#iptFechaNacimiento" name="iptFechaNacimiento"/>
+		            	<input type="text" class="form-control datetimepicker-input" data-target="#iptFechaNacimiento" name="iptFechaNacimiento" value="<?= $formatFechaNacimiento->format('d/m/Y');?>" />
 		              	<div class="input-group-append" data-target="#iptFechaNacimiento" data-toggle="datetimepicker">
 		                	<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
 		              	</div>
 		            </div>
-
 				</div>
 				<div class="form-group col-sm-7">
 					<label for="iptDireccion"> Dirección </label>
-					<input type="text" class="form-control" id="iptDireccion" name="iptDireccion">
+					<input type="text" class="form-control" id="iptDireccion" name="iptDireccion" value="<?php if(isset($datoPersonal)){echo $datoPersonal->direccion_residencia; }?>">
 				</div>
 			</div>
-
-			<!-- DATOS DE ESTUDIOS -->
-			<h4 class="mt-5">Estudios Actuales</h4>
-			<br>
+			<div class="ml-4">
+				<button type="submit" class="btn btn-primary ml-2" id="btnSubmitFormEstudios"> 
+					<i class="fas fa-save"></i> Actualizar Datos
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="card mt-3">
+	<div class="card-header">
+		<h4>Estudios</h4>
+	</div>
+	<div class="card-body">
+		<form action="<?= base_url('index.php/Jovenes/mtnDatosPersonales_Estudio')?>" method="POST" id="formEstudios">
+			<input type="hidden" name="iptIdEscolaridad"  id="iptIdEscolaridad">
+			<input type="hidden" name="iptIdDatoPersonal" id="iptIdDatoPersonal" value="<?= $idDatoPersonal ?>">
 			<div class="row">
 				<div class="form-group col-sm-3">
 					<label for="iptIdNivelEstudio">Nivel de Escolaridad</label>
@@ -86,18 +101,18 @@
 			<div class="row">
 				<div class="form-group col-sm-5">
 					<label for="iptNombreInstitucionEstudio">Nombre de Centro de Estudios:</label>
-					<input type="text" class="form-control" name="iptNombreInstitucionEstudio" id="iptNombreInstitucionEstudio">
+					<input type="text" class="form-control" name="iptNombreInstitucionEstudio" id="iptNombreInstitucionEstudio" required>
 				</div>
 				<div class="form-group col-sm-5" id="divNombreCarrera">
 					<label for="iptNombreCarreraEstudio">Nombre de Carrera:</label>
-					<input type="text" class="form-control" name="iptNombreCarreraEstudio" id="iptNombreCarreraEstudio">
+					<input type="text" class="form-control" name="iptNombreCarreraEstudio" id="iptNombreCarreraEstudio" required>
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-sm-2">
 					<label for="iptFechaInicioEstudio">Año de Inicio</label>
 					<div class="input-group date" id="iptFechaInicioEstudio" data-target-input="nearest">
-		            	<input type="text" class="form-control datetimepicker-input" data-target="#iptFechaInicioEstudio" name="iptFechaInicioEstudio"/>
+		            	<input type="text" class="form-control datetimepicker-input" data-target="#iptFechaInicioEstudio" name="iptFechaInicioEstudio" id="iptFechaInicioEstudioInput" required />
 		              	<div class="input-group-append" data-target="#iptFechaInicioEstudio" data-toggle="datetimepicker">
 		                	<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
 		              	</div>
@@ -106,7 +121,7 @@
 				<div class="form-group col-sm-2">
 					<label for="iptFechaFinEstudio">Año de Finalización</label>
 					<div class="input-group date" id="iptFechaFinEstudio" data-target-input="nearest">
-						<input type="text" class="form-control datetimepicker-input" date-target="#iptFechaFinEstudio" name="iptFechaFinEstudio">
+						<input type="text" class="form-control datetimepicker-input" date-target="#iptFechaFinEstudio" name="iptFechaFinEstudio" id="iptFechaFinEstudioInput">
 						<div class="input-group-append" data-target="#iptFechaFinEstudio" data-toggle="datetimepicker">
 							<div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
 						</div>
@@ -115,7 +130,7 @@
 				<div class="form-group col-sm-2">
 					<label for="iptHoraInicioEstudio">Hora de Inicio</label>
 					<div class="input-group date" id="iptHoraInicioEstudio" data-target-input="nearest">
-						<input type="text" class="form-control datetimepicker-input" date-target="#iptHoraInicioEstudio" name="iptHoraInicioEstudio">
+						<input type="text" class="form-control datetimepicker-input" date-target="#iptHoraInicioEstudio" name="iptHoraInicioEstudio" id="iptHoraInicioEstudioInput">
 						<div class="input-group-append" data-target="#iptHoraInicioEstudio" data-toggle="datetimepicker">
 							<div class="input-group-text"><i class="far fa-clock"></i></div>
 						</div>
@@ -124,43 +139,70 @@
 				<div class="form-group col-sm-2">
 					<label for="iptHoraFinEstudio">Hora de Salida</label>
 					<div class="input-group date" id="iptHoraFinEstudio" data-target-input="nearest">
-						<input type="text" class="form-control datetimepicker-input" date-target="#iptHoraFinEstudio" name="iptHoraFinEstudio">
+						<input type="text" class="form-control datetimepicker-input" date-target="#iptHoraFinEstudio" name="iptHoraFinEstudio" id="iptHoraFinEstudioInput">
 						<div class="input-group-append" data-target="#iptHoraFinEstudio" data-toggle="datetimepicker">
 							<div class="input-group-text"><i class="far fa-clock"></i></div>
 						</div>
 					</div>
 				</div>
-
-				<?php if($this->uri->segment(3) > 0 ) { ?>
-				<div class="p-3 col-sm-12">
-					<table class="table table-sm">
-						<thead class="thead-light">
-							<tr>
-								<th colspan="4" class="text-center"> Historial de Estudios </th>
-							</tr>
-							<tr>
-								<th>Nivel</th>
-								<th>Grado / Carrera</th>
-								<th>Centro de Estudios</th>
-								<th>Tiempo de Estudios</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Universidad</td>
-								<td>Pregrado</td>
-								<td>Universidad Mariano Gálvez</td>
-								<td>2018 - 2019</td>
-							</tr>
-							
-						</tbody>
-					</table>
-				</div>
-				<?php } ?>
 			</div>
-			<!-- FIN DATOS DE ESTUDIOS -->
-			<!-- INICIO DATOS LABORALES -->
-			<h4 class="mt-5">Datos Laborales </h4>
+			<div class="ml-4">
+				<div>
+					<button type="button" class="btn btn-secondary ml-2" onClick="limpiarDatos(1);">
+						<i class="far fa-file"></i> Nuevo Registro
+					</button>
+					<button type="submit" class="btn btn-primary ml-2" id="btnSubmitFormEstudios"> 
+						<i class="fas fa-save"></i> 
+						Guardar Datos
+					</button>
+				</div>
+			</div>
+		</form>
+		<div class="row">
+			<div class="p-3 col-sm-12">
+				<table class="table table-sm">
+					<thead class="thead-light">
+						<tr>
+							<th colspan="5" class="text-center"> Historial de Estudios </th>
+						</tr>
+						<tr>
+							<th>Editar</th>
+							<th>Nivel</th>
+							<th>Grado / Carrera</th>
+							<th>Centro de Estudios</th>
+							<th>Tiempo de Estudios</th>
+						</tr>
+					</thead>
+					<tbody id="tbody-estudio">
+						<?php
+							foreach ($datoEscolar as $estudio) 
+							{
+								echo "<tr>
+								 		<td>
+								 			<button id='btnEditarEstudio' class='btn btn-dark btn-sm' onClick='buscarDatoxId(1, $estudio->id_datop_escolaridad, ".$this->uri->segment(3).")'>
+								 				<i class='fas fa-edit'></i>
+								 			</button>
+								 		</td>
+										<td>$estudio->id_nivel_escolaridad</td>
+										<td>$estudio->nombrecarrera</td>
+										<td>$estudio->nombre_centroestudios</td>
+										<td>$estudio->fechainicio - $estudio->fechafin</td>
+									</tr>";
+							}
+						?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="card mt-3">
+	<div class="card-header">
+		<h4>Datos Laborales</h4>
+	</div>
+	<div class="card-body">
+		<form>
+			<input type="text" name="iptIdDatoPersonal" id="iptIdDatoPersonal" value="<?= $idDatoPersonal ?>">
 			<div class="row">
 				<div class="form-group col-sm-5">
 					<label for="iptNombreTrabajo"> Nombre de Empresa o Negocio </label>
@@ -223,105 +265,8 @@
 					</div>
 				</div>
 			</div>
-			<!--FIN INICIO DATOS LABORALES -->
-			<div class="text-center">
-				<button type="submit" class="btn btn-primary btn-lg ml-2"> <i class="fas fa-save"></i> Guardar Datos</button>
-			</div>
 		</form>
+		<!--FIN INICIO DATOS LABORALES -->
 	</div><!-- CARD BODY -->
 </div><!-- CARD -->
 
-
-<script>
-$(function() {
-  $('#iptFechaNacimiento').datetimepicker({
-    locale: 'es',
-    format: 'L'
-	/*icons: {
-                time: "fas fa-clock",
-                date: "fa fa-calendar",
-                up: "fa fa-arrow-up",
-                down: "fa fa-arrow-down"
-            }*/
-  });
-
-  $('#iptFechaInicioEstudio').datetimepicker({
-    locale: 'es',
-    format: 'YYYY'
-  });
-
-  $('#iptFechaFinEstudio').datetimepicker({
-    locale: 'es',
-    format: 'YYYY'
-  });
-
-  $('#iptHoraInicioEstudio').datetimepicker({
-    locale: 'es',
-    format: 'LT'
-  });
-
-  $('#iptHoraFinEstudio').datetimepicker({
-    locale: 'es',
-    format: 'LT'
-  });
-
-  $('#iptFechaInicioTrabajo').datetimepicker({
-  	locale: 'es',
-  	format: 'L'
-  });
-
-  $('#iptHoraInicioTrabajo').datetimepicker({
-    locale: 'es',
-    format: 'LT'
-  });  
-
-  $('#iptHoraFinTrabajo').datetimepicker({
-    locale: 'es',
-    format: 'LT'
-  });  
-
-  $('#iptHoraInicioTrabajoSabado').datetimepicker({
-    locale: 'es',
-    format: 'LT'
-  });  
-
-  $('#iptHoraFinTrabajoSabado').datetimepicker({
-    locale: 'es',
-    format: 'LT'
-  });  
-});
-$( document ).ready(function() {
-		/*
-		$('#iptFechaNacimiento').datepicker({
-    		language: "es"
-		});
-	 	$('#iptFechaInicioTrabajo').datepicker({
-    		language: "es"
-	 	});
-
-	 	$('#iptFechaInicioEstudio').datepicker({
-	 		minViewMode: 2,
-    		language: "es"
-	 	});
-
-	 	$('#iptFechaFinEstudio').datepicker({
-	 		minViewMode: 2,
-    		language: "es"
-	 	});
-	 	*/
-
-	 	
-	 	$('#divNombreCarrera').hide();
-
-	 	$('select#iptIdNivelEstudio').change(function(){
-	 		if(this.value == 1 ){
-	 			$('#divSecundaria').show();
-	 			$('#divNombreCarrera').hide()
-	 		}else{
-	 			$('#divSecundaria').hide();
-	 			$('#divNombreCarrera').show()
-	 		}
-	 	});
-	}
-);
-</script> 

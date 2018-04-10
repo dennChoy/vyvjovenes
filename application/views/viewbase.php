@@ -9,8 +9,8 @@
      <link rel="stylesheet" href="<?= base_url('resources/css/bootstrap/css/bootstrap.min.css') ?>"  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
      <link rel="stylesheet" href="<?= base_url('resources/css/main.css') ?>" >
      <!-- jQuery -->
-     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script src="<?= base_url('resources/js/jquery-1.10.2.js') ?>"></script>
+     <script src="<?= base_url('resources/js/jquery.min.js') ?>"></script>
 
      <!-- Bootstrap Select -->
      <link rel="stylesheet" href="<?= base_url('resources/bootstrap-select-1.13.0-beta/css/bootstrap-select.min.css') ?>" >
@@ -18,9 +18,14 @@
     <!--Glyphicons-->
     <script defer src="<?= base_url('resources/glyphicons/fontawesome-free-5.0.8/fontawesome-all.js')?>"></script>
 
-    <!-- Datepicker-->
+    <!-- Datepicker
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" /> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    -->
+     <link rel="stylesheet" href="<?= base_url('resources/datetimepicker/css/tempusdominus-bootstrap-4.min.css') ?>" > 
+     <script src="<?= base_url('resources/js/moment.js') ?>"> </script>
+     <script defer src="<?= base_url('resources/datetimepicker/js/tempusdominus-bootstrap-4.min.js')?>"></script>
+     <script defer src="<?= base_url('resources/datetimepicker/js/es.js')?>"></script>
 
     <!-- Utilidades -->
     <script src="<?=base_url('resources/js/sysutilities.js')?>"> </script>
@@ -52,7 +57,7 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="<?= base_url('resources/js/popper.min.js') ?>" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="<?= base_url('resources/css/bootstrap/js/bootstrap.min.js')  ?>" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <script src="<?= base_url('resources/bootstrap-select-1.13.0-beta/js/bootstrap-select.min.js') ?>"> </script>

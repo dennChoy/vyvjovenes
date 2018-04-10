@@ -42,15 +42,37 @@
     	<div class="text-right">
     		<a class="btn btn-success" role="button" href="<?= base_url('index.php/Jovenes/mtnJovenes')?>"> <i class="fas fa-user-plus"></i> Agregar Persona</a>
     	</div>
-    	<div id="listadoJovenes">
-
+        <br>
+    	<div id="listadoJovenes" class="table-responsive" >
+            <table class="table table-hover table-bordered ">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Edad</th>
+                        <th>Sexo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        foreach ($todosJovenes as $persona) 
+                        {
+                            echo "  <tr>
+                                        <td>
+                                            $persona->id_datopersonal
+                                            <a href='".base_url('index.php/Jovenes/mtnJovenes/')."$persona->id_datopersonal' id='btnVerDetallePersona' class='btn btn-warning btn-sm' role='button'>
+                                                <i class='fas fa-edit'></i>
+                                            </a>
+                                        </td>
+                                        <td>$persona->nombres</td>
+                                        <td>$persona->apellidos</td>
+                                        <td>$persona->edad</td>
+                                        <td>$persona->sexo</td>
+                                    </tr>";
+                        }
+                    ?>
+                </tbody>
+            </table>
     	</div>
     </div>
-
-    
-     <script>
-         //$( document ).ready(function() {
-         $('#fechaInicio').datepicker();
-         $('#fechaFin').datepicker();
-         //});
-    </script> 

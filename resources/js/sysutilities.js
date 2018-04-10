@@ -1,4 +1,4 @@
-var base_url = 'http://localhost:8080/citest/';
+var base_url = 'http://localhost/ciprojects/vyv/vyvjovenes/';
 
 function loading(tipo){
 	//tipo1: Muestra Gif Loading
